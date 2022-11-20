@@ -1,0 +1,27 @@
+.header{
+    &__wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        transform: translate(145%, -30%);
+    }
+    &__list{
+        display: flex;
+        gap: 30px;
+        border: 2px solid black;
+        border-radius: 13px;
+        box-shadow: 1px 1px 1px 1px rgba(105, 105, 105, .2);
+        padding: 20px;
+        list-style-type: none;
+        transition: 0.3s ease;
+        &:hover{
+            transition: 0.3s ease;
+            box-shadow: 3px 3px 3px 3px rgba(105, 105, 105, .4);
+        }
+        &-item{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 24px;
+        }
+    }
+}

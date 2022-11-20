@@ -1,0 +1,22 @@
+.input{
+        height: 100px;
+        width: 400px;
+        border: 1px solid transparent;
+        border-bottom: 1px solid black;
+        pointer-events: auto;
+        cursor: pointer;
+        transition: 0.3s ease;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 35px;
+        &:focus{
+            transition: 0.3s ease;
+            border: 1px solid transparent;
+            border-bottom: 1px solid greenyellow;
+            pointer-events:stroke;
+            outline: none;
+        }
+        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
