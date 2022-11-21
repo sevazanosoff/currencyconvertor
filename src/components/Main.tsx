@@ -18,6 +18,7 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
         const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
         const result = (priceFrom && priceTo) && (priceFrom / priceTo * +amountTo)
         selectedFrom === 'UAH' ? setAmountFrom(Number(result?.toFixed(0))) : setAmountFrom(Number(result?.toFixed(3)))
+        selectedTo !== 'UAH' ? setAmountFrom(Number(result?.toFixed(3))) : setAmountFrom(Number(result?.toFixed(0)))
     }
 
     const changeAmountTo = (selectedFrom: string) => {
@@ -25,6 +26,7 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
         const priceTo = currencyArray.find(cur => cur.cc === selectedTo)?.rate
         const result = (priceFrom && priceTo) && (priceFrom / priceTo * +amountFrom)
         selectedTo === 'UAH' ? setAmountTo(Number(result?.toFixed(0))) : setAmountTo(Number(result?.toFixed(3)))
+        selectedFrom !== 'UAH' ? setAmountTo(Number(result?.toFixed(3))) : setAmountTo(Number(result?.toFixed(0)))
     }
 
     React.useEffect(() => {
