@@ -13,68 +13,41 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
     const [selectedFrom, setSelectedFrom] = React.useState('USD')
     const [selectedTo, setSelectedTo] = React.useState('EUR')
 
-    // const changeAmountFrom = (selectedTo: string) => {
-    //     const priceFrom = currencyArray.find(cur => cur.cc === selectedTo)?.rate
-    //     const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
-    //     console.log(priceFrom + ' priceFrom')
-    //     console.log(priceTo + ' priceTo')
-    //     const result = (priceFrom && priceTo) && (priceFrom) / priceTo * +amountTo
-    //     setAmountFrom(Number(result?.toFixed(2)))
-    // }
-
-    // const changeAmountTo = (selectedFrom: string) => {
-    //     const priceFrom = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
-    //     const priceTo = currencyArray.find(cur => cur.cc === selectedTo)?.rate
-    //     const result = (priceFrom && priceTo) && (priceFrom / priceTo * +amountFrom)
-    //     setAmountTo(Number(result?.toFixed(2)))
-    // }
-
-    const onChangeFromPrice = (value: number) => {
-        const priceFrom = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
-        const priceTo = currencyArray.find(cur => cur.cc === selectedTo)?.rate
+    const changeAmountFrom = (value: number) => {
+        const priceFrom = currencyArray.find(cur => cur.cc === selectedTo)?.rate
+        const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
         const price = !!priceFrom && value / priceFrom
         const result = !!priceTo && (+price * priceTo).toFixed(2)
         setAmountTo(+result)
         setAmountFrom(value)
     }
 
-
-    const onChangeToPrice = (value: number) => {
-        const priceFrom = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
-        const priceTo = currencyArray.find(cur => cur.cc === selectedTo)?.rate
+    const changeAmountTo = (value: number) => {
+        const priceFrom = currencyArray.find(cur => cur.cc === selectedTo)?.rate
+        const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
         const result = priceFrom !== undefined && priceTo !== undefined && (priceFrom / priceTo * value).toFixed(2)
         setAmountFrom(+result)
         setAmountTo(value)
-
     }
 
     React.useEffect(() => {
-        onChangeToPrice(amountTo)
+        changeAmountTo(amountTo)
     }, [selectedFrom, amountFrom])
 
     React.useEffect(() => {
-        onChangeFromPrice(amountFrom)
+        changeAmountFrom(amountFrom)
     }, [selectedTo, amountTo])
-
-
-    // React.useEffect(() => {
-    //     changeAmountFrom(selectedTo)
-    // }, [selectedFrom, amountTo])
-
-    // React.useEffect(() => {
-    //     changeAmountTo(selectedFrom)
-    // }, [selectedTo, amountFrom])
 
     return (
         <section className={styles['main']}>
             <div className={styles['main__wrapper']}>
                 <div className={styles['main__block']}>
                     <Select currencyArray={currencyArray} selected={selectedFrom} setSelected={setSelectedFrom} />
-                    <Input amount={amountFrom} setAmount={onChangeFromPrice} />
+                    <Input amount={amountFrom} setAmount={changeAmountFrom} />
                 </div>
                 <div className={styles['main__block']}>
                     <Select currencyArray={currencyArray} selected={selectedTo} setSelected={setSelectedTo} />
-                    <Input amount={amountTo} setAmount={onChangeToPrice} />
+                    <Input amount={amountTo} setAmount={changeAmountTo} />
                 </div>
             </div>
         </section >
