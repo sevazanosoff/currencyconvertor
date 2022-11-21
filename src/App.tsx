@@ -28,6 +28,7 @@ function App() {
     setLoading(false)
   }
 
+
   React.useEffect(() => {
     fetchCurrency()
   }, [])

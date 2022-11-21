@@ -1,4 +1,4 @@
 export type InputProps = {
-    amount: number | string
-    setAmount: (amount: number | string) => void
+    amount: number
+    setAmount: (amount: number) => void
 }
