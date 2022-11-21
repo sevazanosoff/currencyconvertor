@@ -28,14 +28,27 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
         const result = priceFrom !== undefined && priceTo !== undefined && (priceFrom / priceTo * value).toFixed(2)
         setAmountFrom(+result)
         setAmountTo(value)
+
     }
 
     React.useEffect(() => {
-        changeAmountTo(amountTo)
+        const timeout = setTimeout(() => {
+            changeAmountTo(amountTo)
+            setAmountFrom(+amountFrom.toFixed(2))
+        }, 100)
+        return () => {
+            clearTimeout(timeout)
+        }
     }, [selectedFrom, amountFrom])
 
     React.useEffect(() => {
-        changeAmountFrom(amountFrom)
+        const timeout = setTimeout(() => {
+            changeAmountFrom(amountFrom)
+            setAmountTo(+amountTo.toFixed(2))
+        }, 100)
+        return () => {
+            clearTimeout(timeout)
+        }
     }, [selectedTo, amountTo])
 
     return (
