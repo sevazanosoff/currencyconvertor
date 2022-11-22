@@ -13,9 +13,10 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
     const [selectedFrom, setSelectedFrom] = React.useState('USD')
     const [selectedTo, setSelectedTo] = React.useState('EUR')
 
+    const priceFrom = currencyArray.find(cur => cur.cc === selectedTo)?.rate
+    const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
+
     const changeAmountFrom = (value: number) => {
-        const priceFrom = currencyArray.find(cur => cur.cc === selectedTo)?.rate
-        const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
         const price = !!priceFrom && value / priceFrom
         const result = !!priceTo && (+price * priceTo).toFixed(2)
         setAmountTo(+result)
@@ -23,18 +24,14 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
     }
 
     const changeAmountTo = (value: number) => {
-        const priceFrom = currencyArray.find(cur => cur.cc === selectedTo)?.rate
-        const priceTo = currencyArray.find(cur => cur.cc === selectedFrom)?.rate
         const result = priceFrom !== undefined && priceTo !== undefined && (priceFrom / priceTo * value).toFixed(2)
         setAmountFrom(+result)
         setAmountTo(value)
-
     }
 
     React.useEffect(() => {
         const timeout = setTimeout(() => {
             changeAmountTo(amountTo)
-            setAmountFrom(+amountFrom.toFixed(2))
         }, 100)
         return () => {
             clearTimeout(timeout)
@@ -44,7 +41,6 @@ export const Main: React.FC<MainProps> = ({ currencyArray }) => {
     React.useEffect(() => {
         const timeout = setTimeout(() => {
             changeAmountFrom(amountFrom)
-            setAmountTo(+amountTo.toFixed(2))
         }, 100)
         return () => {
             clearTimeout(timeout)
